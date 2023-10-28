@@ -5,7 +5,7 @@ pub mod function {
     use std::env;
     use std::process::Command;
     use std::{fs, path::PathBuf};
-    pub fn copy_dir(source: &PathBuf, destination: &PathBuf) {
+    pub fn git_copy_dir(source: &PathBuf, destination: &PathBuf) {
         let options = CopyOptions::new();
 
         let y = &source.to_str().unwrap();
@@ -15,18 +15,8 @@ pub mod function {
         let mut has_git = false;
         if git_path.exists() {
             has_git = true;
-            // let command = r#"
-            //     rm -r -f .git
-            // "#;
-            // let _output = Command::new("bash")
-            //     .current_dir(git_path)
-            //     .arg("-c")
-            //     .arg(command)
-            //     .output()
-            //     .expect("Failed to execute command");
         }
 
-        println!("{}", has_git);
         if let Err(e) = dir::copy(source, destination, &options) {
             println!("Error: {:?}", e);
         } else {
@@ -59,7 +49,7 @@ pub mod function {
         }
     }
 
-    pub fn get_current_dir() -> PathBuf {
+    pub fn get_git_current_dir() -> PathBuf {
         let current = env::current_dir();
         let mut path = PathBuf::new();
         match current {
@@ -71,7 +61,7 @@ pub mod function {
         path
     }
 
-    pub fn backup() {
+    pub fn git_backup() {
         let command = r#"
         git add .
         git commit -m "test"
@@ -80,6 +70,53 @@ pub mod function {
 
         let output = Command::new("bash")
             .current_dir("/home/hetzwga/back-this-up")
+            .arg("-c")
+            .arg(command)
+            .output()
+            .expect("Failed to execute command");
+
+        if output.status.success() {
+            println!("Command executed successfully!");
+            let stdout = String::from_utf8(output.stdout).expect("Invalid UTF-8 in stdout");
+            println!("Output: {}", stdout);
+        } else {
+            eprintln!("Command failed with error code: {:?}", output.status);
+            let stderr = String::from_utf8(output.stderr).expect("Invalid UTF-8 in stderr");
+            eprintln!("Error: {}", stderr);
+        }
+    }
+
+    //GOOGLE DRIVE
+
+    pub fn drive_copy_dir(source: &PathBuf, destination: &PathBuf) {
+        let options = CopyOptions::new();
+
+        if let Err(e) = dir::copy(source, destination, &options) {
+            println!("Error: {:?}", e);
+        } else {
+            println!("Directory copied successfully.");
+        }
+    }
+
+    pub fn get_drive_current_dir() -> PathBuf {
+        let current = env::current_dir();
+        let mut path = PathBuf::new();
+        match current {
+            Ok(p) => {
+                path = p;
+            }
+            Err(e) => println!("{}", e),
+        }
+        path
+    }
+
+    pub fn drive_backup() {
+        let command = r#"
+            gdrive files upload --recursive ~/drive-back-this-up/
+        "#;
+
+        let output = Command::new("bash")
+            .current_dir("/home/hetzwga/drive-back-this-up")
             .arg("-c")
             .arg(command)
             .output()
