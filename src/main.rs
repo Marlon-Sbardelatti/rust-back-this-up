@@ -1,11 +1,10 @@
 use std::fs;
 use std::path::PathBuf;
-mod function;
+mod git;
 use clap::{Arg, Command};
-use function::function::{
-    drive_backup, drive_copy_dir, get_drive_current_dir, get_git_current_dir, git_backup,
-    git_copy_dir,
-};
+mod drive;
+use drive::functions::{drive_backup, drive_copy_dir, get_drive_current_dir};
+use git::functions::{get_git_current_dir, git_backup, git_copy_dir};
 
 fn main() {
     let params = Command::new("back-this-up")
@@ -15,37 +14,37 @@ fn main() {
         .arg(
             Arg::new("git")
                 .short('g')
-                .long("git")
+                .long("gp")
                 .help("Push the back-this-up dir to git"),
         )
         .arg(
             Arg::new("git_backup")
                 .short('b')
-                .long("git_backup")
+                .long("gb")
                 .help("backup the files in back-this-up dir"),
         )
         .arg(
             Arg::new("back-git")
                 .short('a')
-                .long("back-git")
+                .long("gbp")
                 .help("Backup the files and push to git"),
         )
         .arg(
             Arg::new("back-push-drive")
                 .short('i')
-                .long("bp-drive")
+                .long("dbp")
                 .help("Backup the files and push to google drive"),
         )
         .arg(
             Arg::new("back-drive")
                 .short('s')
-                .long("back-drive")
+                .long("db")
                 .help("Backup the files in drive-back-this-up dir"),
         )
         .arg(
             Arg::new("drive")
                 .short('d')
-                .long("drive")
+                .long("dp")
                 .help("Push the drive-back-this-up dir to google drive"),
         )
         .get_matches();
@@ -58,7 +57,6 @@ fn main() {
             if user_path.exists() {
                 let mut found = false;
                 if let Some(_param) = params.get_one::<String>("git") {
-                    // git_copy_dir(&user_path, &git_back_this_up_path);
                     git_backup();
                     found = true;
                 }

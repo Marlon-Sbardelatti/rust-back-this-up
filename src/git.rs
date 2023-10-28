@@ -1,10 +1,10 @@
-pub mod function {
+pub mod functions{
     extern crate fs_extra;
-    use dirs;
+    use std::fs;
     use fs_extra::dir::{self, CopyOptions};
     use std::env;
+    use std::path::PathBuf;
     use std::process::Command;
-    use std::{fs, path::PathBuf};
     pub fn git_copy_dir(source: &PathBuf, destination: &PathBuf) {
         let options = CopyOptions::new();
 
@@ -18,9 +18,12 @@ pub mod function {
         }
 
         if let Err(e) = dir::copy(source, destination, &options) {
+           // fs::metadata(path) 
             println!("Error: {:?}", e);
         } else {
             println!("Directory copied successfully.");
+            println!("{:?}", destination);
+            println!("{:?}", source);
         }
         if has_git {
             let y = &destination.to_str().unwrap();
@@ -70,53 +73,6 @@ pub mod function {
 
         let output = Command::new("bash")
             .current_dir("/home/hetzwga/back-this-up")
-            .arg("-c")
-            .arg(command)
-            .output()
-            .expect("Failed to execute command");
-
-        if output.status.success() {
-            println!("Command executed successfully!");
-            let stdout = String::from_utf8(output.stdout).expect("Invalid UTF-8 in stdout");
-            println!("Output: {}", stdout);
-        } else {
-            eprintln!("Command failed with error code: {:?}", output.status);
-            let stderr = String::from_utf8(output.stderr).expect("Invalid UTF-8 in stderr");
-            eprintln!("Error: {}", stderr);
-        }
-    }
-
-    //GOOGLE DRIVE
-
-    pub fn drive_copy_dir(source: &PathBuf, destination: &PathBuf) {
-        let options = CopyOptions::new();
-
-        if let Err(e) = dir::copy(source, destination, &options) {
-            println!("Error: {:?}", e);
-        } else {
-            println!("Directory copied successfully.");
-        }
-    }
-
-    pub fn get_drive_current_dir() -> PathBuf {
-        let current = env::current_dir();
-        let mut path = PathBuf::new();
-        match current {
-            Ok(p) => {
-                path = p;
-            }
-            Err(e) => println!("{}", e),
-        }
-        path
-    }
-
-    pub fn drive_backup() {
-        let command = r#"
-            gdrive files upload --recursive ~/drive-back-this-up/
-        "#;
-
-        let output = Command::new("bash")
-            .current_dir("/home/hetzwga/drive-back-this-up")
             .arg("-c")
             .arg(command)
             .output()
