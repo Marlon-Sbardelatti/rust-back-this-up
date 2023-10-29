@@ -31,3 +31,12 @@ Before using `back-this-up`, ensure that you have the required dependencies inst
 
 ```shell
 back-this-up [FLAGS]
+
+Flags:
+
+-g, --gp: Push the back-this-up directory to Git.
+-b, --gb: Backup the files in the back-this-up directory.
+-a, --gbp: Backup the files and push to Git.
+-i, --dbp: Backup the files and push to Google Drive.
+-s, --db: Backup the files in the drive-back-this-up directory.
+-d, --dp: Push the drive-back-this-up directory to Google Drive.
