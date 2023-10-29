@@ -51,8 +51,32 @@ back-this-up -b
 ```
 
 ## Directory Structure
-back-this-up manages two main directories:
+**back-this-up manages two main directories**:
 
 - back-this-up: Used for Git-related operations.
 - drive-back-this-up: Used for Google Drive-related operations.
+
+## Installation
+**1. Clone the repository to your local machine**:
+
+```shell
+git clone https://github.com/Marlon-Sbardelatti/back-this-up.git
+back-this-up -b
+```
+**2. Navigate to the project directory**:
+
+```shell
+cd back-this-up
+```
+**3.Build the project**:
+
+```shell
+cargo build --release
+```
+**4.Find the binary in the target/release directory**:
+
+```shell
+target/release/back-this-up
+```
+**5.You can copy the binary to a directory in your PATH to run it from anywhere**.
 
