@@ -8,12 +8,12 @@ Author: Marlon Sbardelatti
 ## Overview
 back-this-up is a command-line tool that simplifies the process of backing up files to both Git and Google Drive. It provides options to perform the following tasks:
 
-## Git Operations:
+- **Git Operations**:
 
-Push the contents of the back-this-up directory to Git.
-Backup the files in the back-this-up directory.
-Backup the files and push to Git.
-Google Drive Operations:
+- Push the contents of the back-this-up directory to Git.
+- Backup the files in the back-this-up directory.
+- Backup the files and push to Git.
+- Google Drive Operations:
 
 Copy the contents of the drive-back-this-up directory to another location.
 Backup the files and push to Google Drive.
