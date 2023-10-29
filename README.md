@@ -31,7 +31,7 @@ Before using `back-this-up`, ensure that you have the required dependencies inst
 
 ```shell
 back-this-up [FLAGS]
-
+```
 # Flags:
 
 -g, --gp: Push the back-this-up directory to Git.
