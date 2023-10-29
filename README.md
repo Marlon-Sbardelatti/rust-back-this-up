@@ -1,5 +1,5 @@
 ## back-this-up
-** Version: 1.0.0
+**Version**: 1.0.0
 
 A simple command-line tool to facilitate the backup and management of files. Designed for easy backup to both Git and Google Drive.
 
