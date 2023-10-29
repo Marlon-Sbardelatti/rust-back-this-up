@@ -10,15 +10,16 @@ back-this-up is a command-line tool that simplifies the process of backing up fi
 
 - **Git Operations**:
 
-- Push the contents of the back-this-up directory to Git.
-- Backup the files in the back-this-up directory.
-- Backup the files and push to Git.
-- Google Drive Operations:
+  - Push the contents of the back-this-up directory to Git.
+  - Backup the files in the back-this-up directory.
+  - Backup the files and push to Git.
+    
+- **Google Drive Operations**:
 
-Copy the contents of the drive-back-this-up directory to another location.
-Backup the files and push to Google Drive.
-Push the contents of the drive-back-this-up directory to Google Drive.
-Prerequisites
+  - Copy the contents of the drive-back-this-up directory to another location.
+  - Backup the files and push to Google Drive.
+  - Push the contents of the drive-back-this-up directory to Google Drive.
+## Prerequisites
 Before using back-this-up, ensure that you have the required dependencies installed:
 
 Git: For Git-related operations.
