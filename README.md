@@ -40,3 +40,13 @@ back-this-up [FLAGS]
 - -i, --dbp: Backup the files and push to Google Drive.
 - -s, --db: Backup the files in the drive-back-this-up directory.
 - -d, --dp: Push the drive-back-this-up directory to Google Drive.
+
+# Example Usage
+
+- **To backup files in the back-this-up directory to Git**:
+
+ 
+```shell
+back-this-up -b
+```
+
