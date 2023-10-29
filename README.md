@@ -79,4 +79,7 @@ cargo build --release
 target/release/back-this-up
 ```
 **5.You can copy the binary to a directory in your PATH to run it from anywhere**.
+```shell
+sudo cp ./back-this-up /usr/local/bin
+```
 
