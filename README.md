@@ -26,6 +26,7 @@ Before using `back-this-up`, ensure that you have the required dependencies inst
 
 - **Git:** For Git-related operations.
 - **[gdrive](https://github.com/gdrive-org/gdrive):** For Google Drive-related operations.
+- **GitHub:** Create a repo in your github account After you run the cli tool for the first time and the directories are created make sure to add the origin to this repo in the directory.
 
 ## Usage
 
