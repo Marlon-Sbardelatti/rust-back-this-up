@@ -61,7 +61,6 @@ back-this-up -b
 
 ```shell
 git clone https://github.com/Marlon-Sbardelatti/back-this-up.git
-back-this-up -b
 ```
 **2. Navigate to the project directory**:
 
