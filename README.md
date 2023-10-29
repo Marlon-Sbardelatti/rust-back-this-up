@@ -34,9 +34,9 @@ back-this-up [FLAGS]
 ```
 # Flags:
 
-- -g, --gp: Push the back-this-up directory to Git.
+- -g, --gp: Push the back-this-up directory to GitHub.
 - -b, --gb: Backup the files in the back-this-up directory.
-- -a, --gbp: Backup the files and push to Git.
+- -a, --gbp: Backup the files and push to GitHub.
 - -i, --dbp: Backup the files and push to Google Drive.
 - -s, --db: Backup the files in the drive-back-this-up directory.
 - -d, --dp: Push the drive-back-this-up directory to Google Drive.
@@ -49,4 +49,10 @@ back-this-up [FLAGS]
 ```shell
 back-this-up -b
 ```
+
+## Directory Structure
+back-this-up manages two main directories:
+
+- back-this-up: Used for Git-related operations.
+- drive-back-this-up: Used for Google Drive-related operations.
 
