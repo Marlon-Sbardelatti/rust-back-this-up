@@ -49,30 +49,28 @@ fn main() {
         )
         .get_matches();
 
+    let mut found: [bool; 2] = [false, false];
+
     let home_path = dirs::home_dir();
     if let Some(path) = home_path {
         let git_back_this_up_path = path.join("back-this-up");
         if git_back_this_up_path.exists() {
             let user_path: PathBuf = get_git_current_dir();
             if user_path.exists() {
-                let mut found = false;
                 if let Some(_param) = params.get_one::<String>("git") {
                     git_backup();
-                    found = true;
+                    found[0] = true;
                 }
                 if let Some(_param) = params.get_one::<String>("git_backup") {
                     git_copy_dir(&user_path, &git_back_this_up_path);
-                    found = true;
+                    found[0] = true;
                 }
                 if let Some(_param) = params.get_one::<String>("back-git") {
                     git_copy_dir(&user_path, &git_back_this_up_path);
                     git_backup();
-                    found = true;
+                    found[0] = true;
                 }
 
-                if !found {
-                    println!("You have to provide a flag");
-                }
             } else {
                 println!("User path doesnt exists");
             }
@@ -89,22 +87,18 @@ fn main() {
         if drive_back_this_up_path.exists() {
             let user_path: PathBuf = get_drive_current_dir();
             if user_path.exists() {
-                let mut found = false;
                 if let Some(_param) = params.get_one::<String>("back-drive") {
                     drive_copy_dir(&user_path, &drive_back_this_up_path);
-                    found = true;
+                    found[1] = true;
                 }
                 if let Some(_param) = params.get_one::<String>("back-push-drive") {
                     drive_copy_dir(&user_path, &drive_back_this_up_path);
                     drive_backup();
-                    found = true;
+                    found[1] = true;
                 }
                 if let Some(_param) = params.get_one::<String>("drive") {
                     drive_backup();
-                    found = true;
-                }
-                if !found {
-                    println!("You have to provide a flag");
+                    found[1] = true;
                 }
             } else {
                 println!("User path doesnt exists");
@@ -116,6 +110,9 @@ fn main() {
                 }
                 Err(e) => println!("{}", e),
             }
+        }
+        if !found[1] && !found[0] {
+            println!("You have to provide a flag");
         }
     }
 }

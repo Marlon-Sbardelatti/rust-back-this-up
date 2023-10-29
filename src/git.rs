@@ -1,8 +1,8 @@
-pub mod functions{
+pub mod functions {
     extern crate fs_extra;
-    use std::fs;
     use fs_extra::dir::{self, CopyOptions};
     use std::env;
+    use std::fs;
     use std::path::PathBuf;
     use std::process::Command;
     pub fn git_copy_dir(source: &PathBuf, destination: &PathBuf) {
@@ -17,22 +17,35 @@ pub mod functions{
             has_git = true;
         }
 
-        if let Err(e) = dir::copy(source, destination, &options) {
-           // fs::metadata(path) 
-            println!("Error: {:?}", e);
+        let mut deleted = false;
+        if let Err(_e) = dir::copy(source, destination, &options) {
+            let y = &destination.to_str().unwrap();
+            let x = y.to_string();
+            let dir_name = source.file_name().unwrap().to_string_lossy().to_string();
+            let dir_ref = &dir_name;
+            let path = PathBuf::from(x + "/" + dir_ref + "/");
+            match fs::remove_dir_all(path) {
+                Ok(_) => deleted = true,
+                Err(e) => println!("{}", e),
+            }
         } else {
             println!("Directory copied successfully.");
-            println!("{:?}", destination);
-            println!("{:?}", source);
         }
+
+        if deleted {
+            if let Err(e) = dir::copy(source, destination, &options) {
+                println!("Error: {:?}", e);
+            } else {
+                println!("Directory with the same name was replaced successfully.");
+            }
+        }
+
         if has_git {
             let y = &destination.to_str().unwrap();
             let x = y.to_string();
             let dir_name = source.file_name().unwrap().to_string_lossy().to_string();
             let dir_ref = &dir_name;
             let git_path = PathBuf::from(x + "/" + dir_ref + "/");
-            println!("{:?}", git_path);
-            println!("{}", dir_name);
             let command = r#"
                 rm -r -f -v .git
             "#;
